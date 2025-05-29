@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nutrition - FitTrack</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f4f7f8;
+    }
+    
+    .nutrition-banner {
+      background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('assets/nutrition.jpg');
+      background-size: cover;
+      background-position: center;
+      color: white;
+      padding: 40px 0;
+      margin-bottom: 30px;
+    }
+    
+    .banner-content {
+      text-align: center;
+    }
+    
+    .banner-title {
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+    }
+    
+    .banner-subtitle {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    .nutrition-container {
+      margin-bottom: 50px;
+    }
+    
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: var(--text-color);
+    }
+    
+    .nutrition-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+    
+    .nutrition-card {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+    
+    .nutrition-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .nutrition-image {
+      height: 200px;
+      overflow: hidden;
+    }
+    
+    .nutrition-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    
+    .nutrition-card:hover .nutrition-image img {
+      transform: scale(1.05);
+    }
+    
+    .nutrition-content {
+      padding: 20px;
+    }
+    
+    .nutrition-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--text-color);
+    }
+    
+    .nutrition-meta {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 15px;
+      font-size: 0.9rem;
+      color: #6c757d;
+      flex-wrap: wrap;
+    }
+    
+    .nutrition-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    .nutrition-description {
+      margin-bottom: 20px;
+      color: #6c757d;
+      line-height: 1.6;
+    }
+    
+    .nutrition-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    
+    .nutrition-tag {
+      padding: 5px 10px;
+      background-color: #f8f9fa;
+      border-radius: 5px;
+      font-size: 0.85rem;
+      color: #6c757d;
+    }
+    
+    .macro-nutrients {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+    }
+    
+    .macro-item {
+      text-align: center;
+      background-color: #f8f9fa;
+      padding: 10px;
+      border-radius: 8px;
+      min-width: 70px;
+    }
+    
+    .macro-value {
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: var(--primary-color);
+    }
+    
+    .macro-label {
+      font-size: 0.85rem;
+      color: #6c757d;
+    }
+    
+    .meal-planner {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      padding: 30px;
+      margin-bottom: 30px;
+    }
+    
+    .meal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    .meal-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+    
+    .meal-tabs {
+      display: flex;
+      border-bottom: 1px solid #e9ecef;
+      margin-bottom: 20px;
+    }
+    
+    .meal-tab {
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-bottom: 2px solid transparent;
+      font-weight: 500;
+    }
+    
+    .meal-tab.active {
+      border-bottom: 2px solid var(--primary-color);
+      color: var(--primary-color);
+    }
+    
+    .meal-content {
+      margin-bottom: 20px;
+    }
+    
+    .meal-card {
+      padding: 15px;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .meal-card:last-child {
+      border-bottom: none;
+    }
+    
+    .meal-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: #f8f9fa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-color);
+      font-size: 1.2rem;
+    }
+    
+    .meal-info {
+      flex: 1;
+    }
+    
+    .meal-info-title {
+      font-weight: 600;
+      margin-bottom: 5px;
+      color: var(--text-color);
+    }
+    
+    .meal-info-meta {
+      font-size: 0.85rem;
+      color: #6c757d;
+      display: flex;
+      gap: 15px;
+    }
+    
+    .nutrition-tracker {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      padding: 30px;
+      margin-bottom: 30px;
+    }
+    
+    .tracker-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    .progress-bar-container {
+      height: 8px;
+      background-color: #e9ecef;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 5px;
+    }
+    
+    .progress-bar-fill {
+      height: 100%;
+      border-radius: 4px;
+    }
+    
+    .calories-fill {
+      background-color: #ff9aa2;
+    }
+    
+    .protein-fill {
+      background-color: #b5ead7;
+    }
+    
+    .carbs-fill {
+      background-color: #c7ceea;
+    }
+    
+    .fats-fill {
+      background-color: #ffdac1;
+    }
+    
+    .progress-text {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      color: #6c757d;
+    }
+    
+    @media (max-width: 768px) {
+      .nutrition-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container nav-container">
+      <div class="logo">
+        <img src="assets/logo.jpg" alt="FitTrack Logo">
+        <span class="logo-text">FitTrack</span>
+      </div>
+      <button class="mobile-menu-btn">
+        <i class="fas fa-bars"></i>
+      </button>
+      <ul class="nav-menu">
+        <li class="nav-item"><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+        <li class="nav-item"><a href="workouts.html" class="nav-link">Workouts</a></li>
+        <li class="nav-item"><a href="nutrition.html" class="nav-link active">Nutrition</a></li>
+        <li class="nav-item"><a href="profile.html" class="nav-link">Profile</a></li>
+      </ul>
+      <div class="auth-buttons">
+        <button id="logoutBtn" class="btn btn-outline">Logout</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Banner Section -->
+  <section class="nutrition-banner">
+    <div class="container">
+      <div class="banner-content">
+        <h1 class="banner-title">Nutrition Tracker & Meal Plans</h1>
+        <p class="banner-subtitle">Fuel your body with the right nutrition to achieve your fitness goals</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <div class="container">
+    <!-- Daily Nutrition Tracker -->
+    <div class="nutrition-tracker">
+      <div class="tracker-header">
+        <h2 class="section-title">Today's Nutrition</h2>
+        <button class="btn btn-primary">Log Food</button>
+      </div>
+      
+      <div style="margin-bottom: 30px;">
+        <div style="margin-bottom: 20px;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+            <h3 style="font-size: 1.1rem; font-weight: 600; margin: 0;">Calories</h3>
+            <span style="font-weight: 600;">1,250 / 2,000 kcal</span>
+          </div>
+          <div class="progress-bar-container">
+            <div class="progress-bar-fill calories-fill" style="width: 62.5%;"></div>
+          </div>
+          <div class="progress-text">
+            <span>0%</span>
+            <span>100%</span>
+          </div>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+          <div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+              <h3 style="font-size: 1rem; font-weight: 600; margin: 0;">Protein</h3>
+              <span>75g / 120g</span>
+            </div>
+            <div class="progress-bar-container">
+              <div class="progress-bar-fill protein-fill" style="width: 62.5%;"></div>
+            </div>
+          </div>
+          
+          <div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+              <h3 style="font-size: 1rem; font-weight: 600; margin: 0;">Carbs</h3>
+              <span>130g / 250g</span>
+            </div>
+            <div class="progress-bar-container">
+              <div class="progress-bar-fill carbs-fill" style="width: 52%;"></div>
+            </div>
+          </div>
+          
+          <div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+              <h3 style="font-size: 1rem; font-weight: 600; margin: 0;">Fats</h3>
+              <span>45g / 65g</span>
+            </div>
+            <div class="progress-bar-container">
+              <div class="progress-bar-fill fats-fill" style="width: 69%;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div>
+        <h3 style="font-size: 1.1rem; font-weight: 600; margin-bottom: 15px;">Today's Meals</h3>
+        
+        <div class="meal-card">
+          <div class="meal-icon">
+            <i class="fas fa-coffee"></i>
+          </div>
+          <div class="meal-info">
+            <div class="meal-info-title">Breakfast</div>
+            <div class="meal-info-meta">
+              <span>480 kcal</span>
+              <span>25g protein</span>
+              <span>65g carbs</span>
+              <span>15g fats</span>
+            </div>
+          </div>
+          <button class="btn-icon">
+            <i class="fas fa-plus"></i>
+          </button>
+        </div>
+        
+        <div class="meal-card">
+          <div class="meal-icon">
+            <i class="fas fa-drumstick-bite"></i>
+          </div>
+          <div class="meal-info">
+            <div class="meal-info-title">Lunch</div>
+            <div class="meal-info-meta">
+              <span>520 kcal</span>
+              <span>35g protein</span>
+              <span>45g carbs</span>
+              <span>20g fats</span>
+            </div>
+          </div>
+          <button class="btn-icon">
+            <i class="fas fa-plus"></i>
+          </button>
+        </div>
+        
+        <div class="meal-card">
+          <div class="meal-icon">
+            <i class="fas fa-apple-alt"></i>
+          </div>
+          <div class="meal-info">
+            <div class="meal-info-title">Snack</div>
+            <div class="meal-info-meta">
+              <span>250 kcal</span>
+              <span>15g protein</span>
+              <span>20g carbs</span>
+              <span>10g fats</span>
+            </div>
+          </div>
+          <button class="btn-icon">
+            <i class="fas fa-plus"></i>
+          </button>
+        </div>
+        
+        <div class="meal-card">
+          <div class="meal-icon">
+            <i class="fas fa-utensils"></i>
+          </div>
+          <div class="meal-info">
+            <div class="meal-info-title">Dinner</div>
+            <div class="meal-info-meta">
+              <span>0 kcal</span>
+              <span>0g protein</span>
+              <span>0g carbs</span>
+              <span>0g fats</span>
+            </div>
+          </div>
+          <button class="btn-icon">
+            <i class="fas fa-plus"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Meal Planner -->
+    <div class="meal-planner">
+      <div class="meal-header">
+        <h2 class="section-title">Meal Planner</h2>
+        <button class="btn btn-outline">View All Plans</button>
+      </div>
+      
+      <div class="meal-tabs">
+        <div class="meal-tab active">Weight Loss</div>
+        <div class="meal-tab">Muscle Gain</div>
+        <div class="meal-tab">Balanced</div>
+        <div class="meal-tab">Vegetarian</div>
+        <div class="meal-tab">Vegan</div>
+      </div>
+      
+      <div class="meal-content">
+        <p style="margin-bottom: 20px; color: #6c757d;">This meal plan is designed for weight loss, with a balanced mix of protein, moderate carbs, and healthy fats. It provides approximately 1,800 calories per day and is high in fiber to help you feel full.</p>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+          <div class="nutrition-card">
+            <div class="nutrition-image">
+              <img src="assets/workout.jpg" alt="Breakfast">
+            </div>
+            <div class="nutrition-content">
+              <h3 class="nutrition-title">Protein-Packed Breakfast</h3>
+              <div class="macro-nutrients">
+                <div class="macro-item">
+                  <div class="macro-value">420</div>
+                  <div class="macro-label">Calories</div>
+                </div>
+                <div class="macro-item">
+                  <div class="macro-value">30g</div>
+                  <div class="macro-label">Protein</div>
+                </div>
+                <div class="macro-item">
+                  <div class="macro-value">35g</div>
+                  <div class="macro-label">Carbs</div>
+                </div>
+                <div class="macro-item">
+                  <div class="macro-value">15g</div>
+                  <div class="macro-label">Fats</div>
+                </div>
+              </div>
+              <p class="nutrition-description">Greek yogurt with berries, nuts, and a drizzle of honey, paired with two boiled eggs.</p>
+              <button class="btn btn-outline" style="width: 100%;">View Recipe</button>
+            </div>
+          </div>
+          
+          <div class="nutrition-card">
+            <div class="nutrition-image">
+              <img src="assets/workout.jpg" alt="Lunch">
+            </div>
+            <div class="nutrition-content">
+              <h3 class="nutrition-title">Grilled Chicken Salad</h3>
+              <div class="macro-nutrients">
+                <div class="macro-item">
+                  <div class="macro-value">550</div>
+                  <div class="macro-label">Calories</div>
+                </div>
+                <div class="macro-item">
+                  <div class="macro-value">40g</div>
+                  <div class="macro-label">Protein</div>
+                </div>
+                <div class="macro-item">
+                  <div class="macro-value">30g</div>
+                  <div class="macro-label">Carbs</div>
+                </div>
+                <div class="macro-item">
+                  <div class="macro-value">25g</div>
+                  <div class="macro-label">Fats</div>
+                </div>
+              </div>
+              <p class="nutrition-description">Grilled chicken breast over mixed greens, cherry tomatoes, cucumber, and avocado with olive oil and lemon dressing.</p>
+              <button class="btn btn-outline" style="width: 100%;">View Recipe</button>
+            </div>
+          </div>
+          
+          <div class="nutrition-card">
+            <div class="nutrition-image">
+              <img src="assets/workout.jpg" alt="Dinner">
+            </div>
+            <div class="nutrition-content">
+              <h3 class="nutrition-title">Baked Salmon with Vegetables</h3>
+              <div class="macro-nutrients">
+                <div class="macro-item">
+                  <div class="macro-value">480</div>
+                  <div class="macro-label">Calories</div>
+                </div>
+                <div class="macro-item">
+                  <div class="macro-value">35g</div>
+                  <div class="macro-label">Protein</div>
+                </div>
+                <div class="macro-item">
+                  <div class="macro-value">25g</div>
+                  <div class="macro-label">Carbs</div>
+                </div>
+                <div class="macro-item">
+                  <div class="macro-value">22g</div>
+                  <div class="macro-label">Fats</div>
+                </div>
+              </div>
+              <p class="nutrition-description">Oven-baked salmon fillet with roasted asparagus, bell peppers, and sweet potato.</p>
+              <button class="btn btn-outline" style="width: 100%;">View Recipe</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div style="text-align: center; margin-top: 20px;">
+        <button class="btn btn-primary">Apply This Meal Plan</button>
+      </div>
+    </div>
+
+    <!-- Nutrition Articles -->
+    <div class="nutrition-container">
+      <h2 class="section-title">Nutrition Articles</h2>
+      <div class="nutrition-grid">
+        <div class="nutrition-card">
+          <div class="nutrition-image">
+            <img src="assets/workout.jpg" alt="Nutrition Basics">
+          </div>
+          <div class="nutrition-content">
+            <h3 class="nutrition-title">Nutrition Basics: Macros vs. Calories</h3>
+            <div class="nutrition-meta">
+              <div class="nutrition-meta-item">
+                <i class="fas fa-clock"></i>
+                <span>5 min read</span>
+              </div>
+              <div class="nutrition-meta-item">
+                <i class="fas fa-user"></i>
+                <span>Nutritionist Sarah</span>
+              </div>
+            </div>
+            <p class="nutrition-description">Learn the difference between counting macros and calories, and which approach might be better for your fitness goals.</p>
+            <button class="btn btn-outline" style="width: 100%;">Read Article</button>
+          </div>
+        </div>
+        
+        <div class="nutrition-card">
+          <div class="nutrition-image">
+            <img src="assets/workout.jpg" alt="Protein Sources">
+          </div>
+          <div class="nutrition-content">
+            <h3 class="nutrition-title">Best Protein Sources for Muscle Growth</h3>
+            <div class="nutrition-meta">
+              <div class="nutrition-meta-item">
+                <i class="fas fa-clock"></i>
+                <span>8 min read</span>
+              </div>
+              <div class="nutrition-meta-item">
+                <i class="fas fa-user"></i>
+                <span>Dr. Mike Johnson</span>
+              </div>
+            </div>
+            <p class="nutrition-description">Discover the top protein sources to fuel muscle growth and recovery, with options for all dietary preferences.</p>
+            <button class="btn btn-outline" style="width: 100%;">Read Article</button>
+          </div>
+        </div>
+        
+        <div class="nutrition-card">
+          <div class="nutrition-image">
+            <img src="assets/workout.jpg" alt="Meal Prep">
+          </div>
+          <div class="nutrition-content">
+            <h3 class="nutrition-title">Meal Prep 101: Save Time and Stay on Track</h3>
+            <div class="nutrition-meta">
+              <div class="nutrition-meta-item">
+                <i class="fas fa-clock"></i>
+                <span>10 min read</span>
+              </div>
+              <div class="nutrition-meta-item">
+                <i class="fas fa-user"></i>
+                <span>Chef Emma</span>
+              </div>
+            </div>
+            <p class="nutrition-description">Learn how to efficiently meal prep for the week to save time, money, and stay consistent with your nutrition goals.</p>
+            <button class="btn btn-outline" style="width: 100%;">Read Article</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer" style="margin-top: 50px;">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <div class="footer-logo">FitTrack</div>
+          <p class="footer-description">Your companion for a healthier lifestyle and fitness journey.</p>
+        </div>
+        <div class="footer-links-column">
+          <h3 class="footer-heading">Quick Links</h3>
+          <ul class="footer-links">
+            <li class="footer-link"><a href="dashboard.html">Dashboard</a></li>
+            <li class="footer-link"><a href="workouts.html">Workouts</a></li>
+            <li class="footer-link"><a href="nutrition.html">Nutrition</a></li>
+            <li class="footer-link"><a href="profile.html">Profile</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-column">
+          <h3 class="footer-heading">Support</h3>
+          <ul class="footer-links">
+            <li class="footer-link"><a href="#">Help Center</a></li>
+            <li class="footer-link"><a href="#">Contact Us</a></li>
+            <li class="footer-link"><a href="#">Privacy Policy</a></li>
+            <li class="footer-link"><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2023 FitTrack. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/mongo-connection.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    // Mobile menu toggle
+    document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+      document.querySelector('.nav-menu').classList.toggle('active');
+      document.querySelector('.auth-buttons').classList.toggle('show');
+    });
+    
+    // Meal tabs functionality
+    const mealTabs = document.querySelectorAll('.meal-tab');
+    mealTabs.forEach(tab => {
+      tab.addEventListener('click', function() {
+        mealTabs.forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+        // In a real app, this would load the corresponding meal plan content
+        alert('In a real app, this would load the ' + this.textContent + ' meal plan content.');
+      });
+    });
+  </script>
+</body>
+</html> 

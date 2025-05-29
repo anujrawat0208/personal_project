@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workout Detail - FitTrack</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f4f7f8;
+    }
+    
+    .detail-page {
+      margin: 40px 0;
+    }
+    
+    .workout-header {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+      margin-bottom: 30px;
+    }
+    
+    .workout-banner {
+      height: 300px;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .workout-banner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .workout-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 30px;
+      background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0));
+      color: white;
+    }
+    
+    .workout-title {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+    
+    .workout-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-bottom: 10px;
+    }
+    
+    .workout-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .workout-tags {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    
+    .workout-tag {
+      padding: 5px 12px;
+      background-color: rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      font-size: 0.9rem;
+    }
+    
+    .workout-details {
+      padding: 30px;
+    }
+    
+    .workout-section {
+      margin-bottom: 30px;
+    }
+    
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: var(--text-color);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .section-title i {
+      color: var(--primary-color);
+    }
+    
+    .workout-description {
+      color: #6c757d;
+      line-height: 1.7;
+      margin-bottom: 30px;
+    }
+    
+    .workout-content {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 30px;
+    }
+    
+    .workout-main {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      padding: 30px;
+    }
+    
+    .workout-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+    
+    .sidebar-section {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      padding: 30px;
+    }
+    
+    .exercises-list {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .exercise-item {
+      margin-bottom: 25px;
+      padding-bottom: 25px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .exercise-item:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+    
+    .exercise-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+    }
+    
+    .exercise-name {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--text-color);
+    }
+    
+    .exercise-number {
+      background-color: var(--primary-color);
+      color: white;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+    }
+    
+    .exercise-details {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+    
+    .exercise-detail {
+      background-color: #f8f9fa;
+      padding: 8px 15px;
+      border-radius: 5px;
+      font-size: 0.9rem;
+      color: #6c757d;
+    }
+    
+    .exercise-instructions {
+      color: #6c757d;
+      line-height: 1.6;
+    }
+    
+    .action-buttons {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+    
+    .action-buttons .btn {
+      flex: 1;
+    }
+    
+    .trainer-profile {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    
+    .trainer-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+    
+    .trainer-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .trainer-info {
+      flex: 1;
+    }
+    
+    .trainer-name {
+      font-weight: 600;
+      margin-bottom: 5px;
+      color: var(--text-color);
+    }
+    
+    .trainer-title {
+      color: #6c757d;
+      font-size: 0.9rem;
+    }
+    
+    .related-workouts {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+    
+    .related-workout {
+      background-color: #f8f9fa;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    
+    .related-workout-img {
+      height: 100px;
+      overflow: hidden;
+    }
+    
+    .related-workout-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .related-workout-info {
+      padding: 15px;
+    }
+    
+    .related-workout-title {
+      font-weight: 600;
+      margin-bottom: 5px;
+      font-size: 0.95rem;
+      color: var(--text-color);
+    }
+    
+    .related-workout-meta {
+      color: #6c757d;
+      font-size: 0.85rem;
+      display: flex;
+      gap: 10px;
+    }
+    
+    @media (max-width: 992px) {
+      .workout-content {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container nav-container">
+      <div class="logo">
+        <img src="assets/logo.jpg" alt="FitTrack Logo">
+        <span class="logo-text">FitTrack</span>
+      </div>
+      <button class="mobile-menu-btn">
+        <i class="fas fa-bars"></i>
+      </button>
+      <ul class="nav-menu">
+        <li class="nav-item"><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+        <li class="nav-item"><a href="workouts.html" class="nav-link active">Workouts</a></li>
+        <li class="nav-item"><a href="nutrition.html" class="nav-link">Nutrition</a></li>
+        <li class="nav-item"><a href="profile.html" class="nav-link">Profile</a></li>
+      </ul>
+      <div class="auth-buttons">
+        <button id="logoutBtn" class="btn btn-outline">Logout</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Workout Detail Content -->
+  <div class="container detail-page">
+    <!-- Workout Header -->
+    <div class="workout-header">
+      <div class="workout-banner">
+        <img src="assets/workout.jpg" alt="Full Body Strength Workout">
+        <div class="workout-overlay">
+          <h1 class="workout-title">Full Body Strength Workout</h1>
+          <div class="workout-meta">
+            <div class="workout-meta-item">
+              <i class="fas fa-dumbbell"></i>
+              <span>Beginner Level</span>
+            </div>
+            <div class="workout-meta-item">
+              <i class="fas fa-clock"></i>
+              <span>45 minutes</span>
+            </div>
+            <div class="workout-meta-item">
+              <i class="fas fa-fire"></i>
+              <span>350 calories</span>
+            </div>
+            <div class="workout-meta-item">
+              <i class="fas fa-star"></i>
+              <span>4.8 (128 ratings)</span>
+            </div>
+          </div>
+          <div class="workout-tags">
+            <div class="workout-tag">Strength</div>
+            <div class="workout-tag">Full Body</div>
+            <div class="workout-tag">Beginner</div>
+            <div class="workout-tag">Muscle Gain</div>
+          </div>
+        </div>
+      </div>
+      <div class="workout-details">
+        <div class="action-buttons">
+          <button class="btn btn-primary">
+            <i class="fas fa-play"></i> Start Workout
+          </button>
+          <button class="btn btn-outline">
+            <i class="far fa-bookmark"></i> Save Workout
+          </button>
+          <button class="btn btn-outline">
+            <i class="fas fa-share-alt"></i> Share
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Workout Content -->
+    <div class="workout-content">
+      <div class="workout-main">
+        <div class="workout-section">
+          <h2 class="section-title">
+            <i class="fas fa-info-circle"></i> About This Workout
+          </h2>
+          <p class="workout-description">
+            This full body strength workout is designed for beginners looking to build strength and muscle. 
+            The routine focuses on the major muscle groups and uses compound movements to maximize efficiency. 
+            All exercises can be done with minimal equipment, making it perfect for home workouts or at the gym.
+          </p>
+          <p class="workout-description">
+            Complete 3 sets of each exercise with a 60-second rest between sets. If you're just starting out, 
+            focus on proper form rather than the number of repetitions. As you get stronger, you can increase 
+            the weight or resistance to continue challenging your muscles.
+          </p>
+        </div>
+
+        <div class="workout-section">
+          <h2 class="section-title">
+            <i class="fas fa-dumbbell"></i> Exercises
+          </h2>
+          <ul class="exercises-list">
+            <li class="exercise-item">
+              <div class="exercise-header">
+                <div class="exercise-name">Squats</div>
+                <div class="exercise-number">1</div>
+              </div>
+              <div class="exercise-details">
+                <div class="exercise-detail">3 sets</div>
+                <div class="exercise-detail">10 reps</div>
+                <div class="exercise-detail">60 sec rest</div>
+              </div>
+              <div class="exercise-instructions">
+                Stand with feet shoulder-width apart, lower your body as if sitting in a chair, keeping chest up and knees over toes. Return to starting position.
+              </div>
+            </li>
+            <li class="exercise-item">
+              <div class="exercise-header">
+                <div class="exercise-name">Push-ups</div>
+                <div class="exercise-number">2</div>
+              </div>
+              <div class="exercise-details">
+                <div class="exercise-detail">3 sets</div>
+                <div class="exercise-detail">8 reps</div>
+                <div class="exercise-detail">60 sec rest</div>
+              </div>
+              <div class="exercise-instructions">
+                Begin in a plank position with hands slightly wider than shoulders. Lower your body until chest nearly touches the floor, then push back up. Modify by doing push-ups on knees if needed.
+              </div>
+            </li>
+            <li class="exercise-item">
+              <div class="exercise-header">
+                <div class="exercise-name">Dumbbell Rows</div>
+                <div class="exercise-number">3</div>
+              </div>
+              <div class="exercise-details">
+                <div class="exercise-detail">3 sets</div>
+                <div class="exercise-detail">10 reps each side</div>
+                <div class="exercise-detail">60 sec rest</div>
+              </div>
+              <div class="exercise-instructions">
+                With a dumbbell in one hand, place opposite knee and hand on a bench. Keep back flat and pull the dumbbell up to your side, then lower back down. Complete all reps on one side before switching.
+              </div>
+            </li>
+            <li class="exercise-item">
+              <div class="exercise-header">
+                <div class="exercise-name">Lunges</div>
+                <div class="exercise-number">4</div>
+              </div>
+              <div class="exercise-details">
+                <div class="exercise-detail">3 sets</div>
+                <div class="exercise-detail">10 reps each leg</div>
+                <div class="exercise-detail">60 sec rest</div>
+              </div>
+              <div class="exercise-instructions">
+                Step forward with one leg and lower your body until both knees are at 90-degree angles. Push back to starting position and repeat with the other leg. Alternate legs for the required repetitions.
+              </div>
+            </li>
+            <li class="exercise-item">
+              <div class="exercise-header">
+                <div class="exercise-name">Plank</div>
+                <div class="exercise-number">5</div>
+              </div>
+              <div class="exercise-details">
+                <div class="exercise-detail">3 sets</div>
+                <div class="exercise-detail">30 seconds</div>
+                <div class="exercise-detail">60 sec rest</div>
+              </div>
+              <div class="exercise-instructions">
+                Hold a push-up position with body in a straight line from head to heels. Engage your core and hold the position for the specified time. Focus on breathing and maintaining proper form.
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="workout-sidebar">
+        <div class="sidebar-section">
+          <h3 class="section-title">
+            <i class="fas fa-user"></i> Trainer
+          </h3>
+          <div class="trainer-profile">
+            <div class="trainer-avatar">
+              <img src="assets/user1.jpg" alt="Trainer">
+            </div>
+            <div class="trainer-info">
+              <div class="trainer-name">Sarah Johnson</div>
+              <div class="trainer-title">Certified Personal Trainer</div>
+            </div>
+          </div>
+          <p style="color: #6c757d; line-height: 1.6; margin-bottom: 0;">
+            Sarah specializes in strength training and has helped hundreds of beginners build their foundation in fitness. Her approach focuses on proper form and sustainable progress.
+          </p>
+        </div>
+
+        <div class="sidebar-section">
+          <h3 class="section-title">
+            <i class="fas fa-info-circle"></i> Equipment Needed
+          </h3>
+          <ul style="padding-left: 20px; color: #6c757d; line-height: 1.6;">
+            <li>Dumbbells (light to moderate weight)</li>
+            <li>Exercise mat</li>
+            <li>Bench or sturdy chair</li>
+            <li>Water bottle</li>
+          </ul>
+        </div>
+
+        <div class="sidebar-section">
+          <h3 class="section-title">
+            <i class="fas fa-lightbulb"></i> Tips & Notes
+          </h3>
+          <ul style="padding-left: 20px; color: #6c757d; line-height: 1.6;">
+            <li>Warm up for 5-10 minutes before starting.</li>
+            <li>Focus on form over the number of repetitions.</li>
+            <li>Breathe out during the exertion phase of each exercise.</li>
+            <li>Stretch after completing the workout.</li>
+            <li>Stay hydrated throughout your session.</li>
+          </ul>
+        </div>
+
+        <div class="sidebar-section">
+          <h3 class="section-title">
+            <i class="fas fa-dumbbell"></i> Similar Workouts
+          </h3>
+          <div class="related-workouts">
+            <a href="#" class="related-workout">
+              <div class="related-workout-img">
+                <img src="assets/workout.jpg" alt="Upper Body Strength">
+              </div>
+              <div class="related-workout-info">
+                <div class="related-workout-title">Upper Body Strength</div>
+                <div class="related-workout-meta">
+                  <span>Beginner</span>
+                  <span>40 min</span>
+                </div>
+              </div>
+            </a>
+            <a href="#" class="related-workout">
+              <div class="related-workout-img">
+                <img src="assets/workout.jpg" alt="Lower Body Focus">
+              </div>
+              <div class="related-workout-info">
+                <div class="related-workout-title">Lower Body Focus</div>
+                <div class="related-workout-meta">
+                  <span>Beginner</span>
+                  <span>35 min</span>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer" style="margin-top: 50px;">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <div class="footer-logo">FitTrack</div>
+          <p class="footer-description">Your companion for a healthier lifestyle and fitness journey.</p>
+        </div>
+        <div class="footer-links-column">
+          <h3 class="footer-heading">Quick Links</h3>
+          <ul class="footer-links">
+            <li class="footer-link"><a href="dashboard.html">Dashboard</a></li>
+            <li class="footer-link"><a href="workouts.html">Workouts</a></li>
+            <li class="footer-link"><a href="nutrition.html">Nutrition</a></li>
+            <li class="footer-link"><a href="profile.html">Profile</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-column">
+          <h3 class="footer-heading">Support</h3>
+          <ul class="footer-links">
+            <li class="footer-link"><a href="#">Help Center</a></li>
+            <li class="footer-link"><a href="#">Contact Us</a></li>
+            <li class="footer-link"><a href="#">Privacy Policy</a></li>
+            <li class="footer-link"><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2023 FitTrack. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/mongo-connection.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    // Mobile menu toggle
+    document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+      document.querySelector('.nav-menu').classList.toggle('active');
+      document.querySelector('.auth-buttons').classList.toggle('show');
+    });
+    
+    // Handle save workout button
+    document.querySelector('.btn-outline').addEventListener('click', function() {
+      if (this.innerHTML.includes('bookmark')) {
+        this.innerHTML = '<i class="fas fa-bookmark"></i> Saved';
+        alert('Workout saved to your profile! In a real app, this would save the workout to your account.');
+      }
+    });
+    
+    // Handle start workout button
+    document.querySelector('.btn-primary').addEventListener('click', function() {
+      alert('Workout started! In a real app, this would start a guided workout session.');
+    });
+  </script>
+</body>
+</html> 

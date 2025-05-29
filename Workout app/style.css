@@ -1,0 +1,228 @@
+:root {
+    --primary-color: #ff4d4d;
+    --primary-hover: #ff3333;
+    --secondary-color: #2c3e50;
+    --accent-color: #3498db;
+    --background-color: #f5f6fa;
+    --text-color: #2c3e50;
+    --error-color: #e74c3c;
+    --success-color: #2ecc71;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: var(--background-color);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                      url('assets/gym-background.jpg');
+    background-size: cover;
+    background-position: center;
+    padding: 20px;
+}
+
+/* PROFILE CONTAINER */
+.profile-container {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 40px;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.profile-container h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: var(--primary-color);
+    font-size: 2em;
+}
+
+.profile-group {
+    margin-bottom: 20px;
+}
+
+.profile-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+.profile-group input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    font-size: 1em;
+    transition: border-color 0.3s ease;
+    background: #f9f9f9;
+}
+
+.profile-group input:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+.profile-btn {
+    width: 100%;
+    padding: 15px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-top: 10px;
+}
+
+.profile-btn:hover {
+    background: var(--primary-hover);
+}
+
+.profile-back {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.profile-back a {
+    color: var(--accent-color);
+    text-decoration: none;
+    font-size: 0.95em;
+}
+
+.profile-back a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .profile-container {
+        padding: 30px 20px;
+    }
+
+    .profile-container h2 {
+        font-size: 1.8em;
+    }
+}
+
+/* Toast Notifications */
+.error-message,
+.success-message {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 25px;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+    z-index: 2000;
+    animation: slideIn 0.5s ease-out, fadeOut 0.5s ease 4.5s forwards;
+}
+
+.error-message {
+    background-color: var(--error-color);
+}
+
+.success-message {
+    background-color: var(--success-color);
+}
+
+@keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes fadeOut {
+    to { opacity: 0; transform: translateX(100%); }
+}
+.bmi-section {
+    background: #fdf6f0;
+    padding: 30px;
+    border-radius: 15px;
+    max-width: 500px;
+    margin: 40px auto;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    animation: fadeIn 0.8s ease;
+  }
+  
+  .bmi-section h2 {
+    text-align: center;
+    color: #e17055;
+    margin-bottom: 20px;
+  }
+  
+  .bmi-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .bmi-group label {
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 5px;
+  }
+  
+  .bmi-group input {
+    padding: 12px;
+    border: 2px solid #eee;
+    border-radius: 8px;
+    font-size: 1em;
+  }
+  
+  .bmi-btn {
+    padding: 12px;
+    background: #ff7675;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .bmi-btn:hover {
+    background: #d63031;
+  }
+  
+  .bmi-result {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .bmi-box {
+    padding: 15px;
+    border-radius: 10px;
+    background: #ffeaa7;
+    animation: slideUp 0.4s ease;
+  }
+  
+  .bmi-box.success {
+    border-left: 5px solid #55efc4;
+  }
+  
+  .error {
+    color: #d63031;
+    font-weight: bold;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  

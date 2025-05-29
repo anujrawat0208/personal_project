@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workout Routines - FitTrack</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f4f7f8;
+    }
+    
+    .workout-banner {
+      background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('assets/workout.jpg');
+      background-size: cover;
+      background-position: center;
+      color: white;
+      padding: 40px 0;
+      margin-bottom: 30px;
+    }
+    
+    .banner-content {
+      text-align: center;
+    }
+    
+    .banner-title {
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+    }
+    
+    .banner-subtitle {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    .workout-container {
+      margin-bottom: 50px;
+    }
+    
+    .filter-section {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      padding: 20px;
+      margin-bottom: 30px;
+    }
+    
+    .filter-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: var(--text-color);
+    }
+    
+    .filter-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    
+    .filter-option {
+      padding: 8px 15px;
+      background-color: #f8f9fa;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .filter-option:hover {
+      background-color: #e9ecef;
+    }
+    
+    .filter-option.active {
+      background-color: var(--primary-color);
+      color: white;
+    }
+    
+    .workout-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+    
+    .workout-card {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+    
+    .workout-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .workout-image {
+      height: 200px;
+      overflow: hidden;
+    }
+    
+    .workout-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    
+    .workout-card:hover .workout-image img {
+      transform: scale(1.05);
+    }
+    
+    .workout-content {
+      padding: 20px;
+    }
+    
+    .workout-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--text-color);
+    }
+    
+    .workout-meta {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 15px;
+      font-size: 0.9rem;
+      color: #6c757d;
+    }
+    
+    .workout-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    .workout-description {
+      margin-bottom: 20px;
+      color: #6c757d;
+      line-height: 1.6;
+    }
+    
+    .workout-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    
+    .workout-tag {
+      padding: 5px 10px;
+      background-color: #f8f9fa;
+      border-radius: 5px;
+      font-size: 0.85rem;
+      color: #6c757d;
+    }
+    
+    .workout-actions {
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: var(--text-color);
+    }
+    
+    @media (max-width: 768px) {
+      .workout-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container nav-container">
+      <div class="logo">
+        <img src="assets/logo.jpg" alt="FitTrack Logo">
+        <span class="logo-text">FitTrack</span>
+      </div>
+      <button class="mobile-menu-btn">
+        <i class="fas fa-bars"></i>
+      </button>
+      <ul class="nav-menu">
+        <li class="nav-item"><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+        <li class="nav-item"><a href="workouts.html" class="nav-link active">Workouts</a></li>
+        <li class="nav-item"><a href="nutrition.html" class="nav-link">Nutrition</a></li>
+        <li class="nav-item"><a href="profile.html" class="nav-link">Profile</a></li>
+      </ul>
+      <div class="auth-buttons">
+        <button id="logoutBtn" class="btn btn-outline">Logout</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Banner Section -->
+  <section class="workout-banner">
+    <div class="container">
+      <div class="banner-content">
+        <h1 class="banner-title">Workout Routines</h1>
+        <p class="banner-subtitle">Discover personalized workout plans tailored to your fitness goals and experience level</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <div class="container">
+    <!-- Filter Section -->
+    <div class="filter-section">
+      <h2 class="filter-title">Filter Workout Plans</h2>
+      <div class="filter-options">
+        <div class="filter-option active" data-filter="all">All</div>
+        <div class="filter-option" data-filter="beginner">Beginner</div>
+        <div class="filter-option" data-filter="intermediate">Intermediate</div>
+        <div class="filter-option" data-filter="advanced">Advanced</div>
+        <div class="filter-option" data-filter="strength">Strength</div>
+        <div class="filter-option" data-filter="cardio">Cardio</div>
+        <div class="filter-option" data-filter="hiit">HIIT</div>
+        <div class="filter-option" data-filter="flexibility">Flexibility</div>
+        <div class="filter-option" data-filter="weight-loss">Weight Loss</div>
+        <div class="filter-option" data-filter="muscle-gain">Muscle Gain</div>
+      </div>
+    </div>
+    
+    <!-- Recommended Workouts -->
+    <div class="workout-container">
+      <h2 class="section-title">Recommended For You</h2>
+      <div class="workout-grid" id="recommendedWorkouts">
+        <!-- Workout cards will be populated here -->
+      </div>
+    </div>
+    
+    <!-- All Workout Plans -->
+    <div class="workout-container">
+      <h2 class="section-title">All Workout Plans</h2>
+      <div class="workout-grid" id="allWorkouts">
+        <!-- Workout cards will be populated here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer" style="margin-top: 50px;">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <div class="footer-logo">FitTrack</div>
+          <p class="footer-description">Your companion for a healthier lifestyle and fitness journey.</p>
+        </div>
+        <div class="footer-links-column">
+          <h3 class="footer-heading">Quick Links</h3>
+          <ul class="footer-links">
+            <li class="footer-link"><a href="dashboard.html">Dashboard</a></li>
+            <li class="footer-link"><a href="workouts.html">Workouts</a></li>
+            <li class="footer-link"><a href="nutrition.html">Nutrition</a></li>
+            <li class="footer-link"><a href="profile.html">Profile</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-column">
+          <h3 class="footer-heading">Support</h3>
+          <ul class="footer-links">
+            <li class="footer-link"><a href="#">Help Center</a></li>
+            <li class="footer-link"><a href="#">Contact Us</a></li>
+            <li class="footer-link"><a href="#">Privacy Policy</a></li>
+            <li class="footer-link"><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2023 FitTrack. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/mongo-connection.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/workouts.js"></script>
+  <script>
+    // Mobile menu toggle
+    document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+      document.querySelector('.nav-menu').classList.toggle('active');
+      document.querySelector('.auth-buttons').classList.toggle('show');
+    });
+  </script>
+</body>
+</html> 
